@@ -1,8 +1,15 @@
 using Microsoft.AspNetCore.HttpOverrides;
+using NLog;
+using NLog.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 
+LogManager.Setup().LoadConfigurationFromFile(
+    Path.Combine(Directory.GetCurrentDirectory(), "nlog.config")
+);
+
 builder.Services.ConfigureCors();
+builder.Services.ConfigureLoggerService();
 
 // Add services to the container.
 
@@ -17,7 +24,8 @@ if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
     app.MapOpenApi();
-} else
+}
+else
 {
     app.UseHsts();
 }
@@ -32,6 +40,8 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 });
 
 app.UseAuthorization();
+
+app.UseCors("CorsPolicy");
 
 app.MapControllers();
 

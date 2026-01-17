@@ -10,4 +10,7 @@ public static class ServiceExtensions
                             .AllowAnyHeader()
                 )
         );
+
+    public static void ConfigureLoggerService(this IServiceCollection services) =>
+        services.AddSingleton<ILoggerManager, LoggerManager>();
 }
