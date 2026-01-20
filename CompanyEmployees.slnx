@@ -1,5 +1,7 @@
 <Solution>
   <Project Path="CompanyEmployees/CompanyEmployees.csproj" />
   <Project Path="Contracts/Contracts.csproj" />
+  <Project Path="Entities/Entities.csproj" />
   <Project Path="LoggerService/LoggerService.csproj" />
+  <Project Path="Repository/Repository.csproj" />
 </Solution>
