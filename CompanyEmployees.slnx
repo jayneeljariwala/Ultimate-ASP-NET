@@ -4,4 +4,6 @@
   <Project Path="Entities/Entities.csproj" />
   <Project Path="LoggerService/LoggerService.csproj" />
   <Project Path="Repository/Repository.csproj" />
+  <Project Path="Service.Contracts/Service.Contracts.csproj" />
+  <Project Path="Service/Service.csproj" />
 </Solution>
