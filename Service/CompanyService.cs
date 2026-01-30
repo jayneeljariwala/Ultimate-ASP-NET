@@ -1,3 +1,5 @@
+using Shared.DataTransferObjects;
+
 internal sealed class CompanyService : ICompanyService
 {
     private readonly IRepositoryManager _repositoryManager;
@@ -9,12 +11,15 @@ internal sealed class CompanyService : ICompanyService
         _logger = logger;
     }
 
-    public IEnumerable<Company> GetAllCompanies(bool trackChanges)
+    public IEnumerable<CompanyDTO> GetAllCompanies(bool trackChanges)
     {
         try
         {
             var companies = _repositoryManager.Company.GetAllCompanies(trackChanges);
-            return companies;
+            var companiesDto = companies.Select(
+                c => new CompanyDTO(c.Id, c.Name ?? "", string.Join(' ', c.Address, c.Country))
+            ).ToList();
+            return companiesDto;
         }
         catch (Exception ex)
         {

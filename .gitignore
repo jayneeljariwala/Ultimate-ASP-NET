@@ -430,4 +430,4 @@ FodyWeavers.xsd
 .DS_Store
 
 # Internal logs
-**/internallog.txt
+**/*log*.txt

@@ -1,4 +1,6 @@
+using Shared.DataTransferObjects;
+
 public interface ICompanyService
 {
-    IEnumerable<Company> GetAllCompanies(bool trackChanges);
+    IEnumerable<CompanyDTO> GetAllCompanies(bool trackChanges);
 }

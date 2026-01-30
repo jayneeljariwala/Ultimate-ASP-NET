@@ -7,4 +7,5 @@
   <Project Path="Repository/Repository.csproj" />
   <Project Path="Service.Contracts/Service.Contracts.csproj" />
   <Project Path="Service/Service.csproj" />
+  <Project Path="Shared/Shared.csproj" />
 </Solution>
