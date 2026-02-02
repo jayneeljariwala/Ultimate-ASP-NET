@@ -13,15 +13,9 @@ namespace CompanyEmployees.Presentation
         [HttpGet]
         public IActionResult GetCopanies()
         {
-            try
-            {
-                var companies = _service.CompanyService.GetAllCompanies(trackChanges: false);
-                return Ok(companies);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+            throw new Exception("Test Exception Middleware");
+            var companies = _service.CompanyService.GetAllCompanies(trackChanges: false);
+            return Ok(companies);
         }
     }
 }
