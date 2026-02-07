@@ -1,4 +1,5 @@
 using AutoMapper;
+using Shared.DataTransferObjects;
 
 internal sealed class EmployeeService : IEmployeeService
 {
@@ -10,5 +11,17 @@ internal sealed class EmployeeService : IEmployeeService
         _repositoryManager = repositoryManager;
         _logger = logger;
         _mapper = mapper;
+    }
+
+    public IEnumerable<EmployeeDTO> GetEmployees(Guid companyId, bool trackChanges)
+    {
+        var company = _repositoryManager.Company.GetCompany(companyId, trackChanges);
+        if (company is null)
+        {
+            throw new CompanyNotFoundException(companyId);
+        }
+        var employeeFromDb = _repositoryManager.Employee.GetEmployees(companyId, trackChanges);
+        var employeeDto = _mapper.Map<IEnumerable<EmployeeDTO>>(employeeFromDb);
+        return employeeDto;
     }
 }
