@@ -6,7 +6,7 @@ public class MappingProfile : Profile
     public MappingProfile()
     {
         CreateMap<Company, CompanyDTO>()
-            .ForCtorParam("FullAddress",
+            .ForMember(c => c.FullAddress,
                 opt => opt.MapFrom(
                     src => string.Join(' ', new[] { src.Address, src.Country })
             )
