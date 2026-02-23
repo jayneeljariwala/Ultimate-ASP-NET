@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Mvc;
 using NLog;
 using NLog.Config;
 
@@ -15,6 +16,9 @@ builder.Services.ConfigureLoggerService();
 builder.Services.ConfigureSqlContext(builder.Configuration);
 builder.Services.ConfigureRepositoryManager();
 builder.Services.ConfigureServiceManager();
+builder.Services.Configure<ApiBehaviorOptions>(
+    opt => opt.SuppressModelStateInvalidFilter = true
+);
 builder.Services.AddControllers(
     config =>
     {
