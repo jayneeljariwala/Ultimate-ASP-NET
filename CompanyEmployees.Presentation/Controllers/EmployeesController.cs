@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.JsonPatch.SystemTextJson;
 using Microsoft.AspNetCore.Mvc;
 
 [Route("api/companies/{companyId:guid}/employees")]
@@ -49,6 +50,23 @@ public class EmployeesController : ControllerBase
         }
 
         _service.EmployeeService.UpdateEmployeeForCompany(companyId, id, employee, companyTrackChanges: false, employeeTrackChanges: true);
+
+        return NoContent();
+    }
+
+    [HttpPatch("{id:guid}")]
+    public IActionResult PartiallyUpdateEmployeeForCompany(Guid companyId, Guid id, [FromBody] JsonPatchDocument<EmployeeForUpdateDto> patchDoc)
+    {
+        if (patchDoc is null)
+        {
+            return BadRequest("patchDoc object is null");
+        }
+
+        var result = _service.EmployeeService.GetEmployeeForPatch(companyId, id, compTrackChanges: false, empTtrackChanges: true);
+
+        patchDoc.ApplyTo(result.employeeToPatch);
+
+        _service.EmployeeService.SaveChangesForPatch(result.employeeToPatch, result.employeeEntity);
 
         return NoContent();
     }
